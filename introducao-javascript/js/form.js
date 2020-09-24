@@ -1,10 +1,19 @@
 let botao = document.querySelector('#adicionar-paciente');
+let mensagemErro = document.querySelector('#mensagem-erro');
 
 botao.addEventListener('click', (event) => {
     event.preventDefault();
+
     let form = document.querySelector('#form-paciente');
     
     let paciente = obterInformacoesPaciente(form);
+
+    let erros = validarPaciente(paciente);
+
+    if(erros.length > 0) {
+        exibeMensagemsDeErro(erros);
+        return;
+    }
 
     adicionarPaciente(paciente);
 
@@ -42,4 +51,21 @@ function criarTd(dado, classe){
     td.classList.add(classe);
     td.textContent = dado;
     return td;
+}
+
+function validarPaciente(paciente) {
+    let erros = [];
+
+    if(!pesoEhValido(paciente.peso)) 
+        erros.push("Peso inválido!");
+
+    if(!alturaEhValida(paciente.altura))
+        erros.push("Altura inválida!");
+    
+    return erros;
+}
+
+function exibeMensagemsDeErro(erros) {
+    mensagemErro.innerHTML = erros.map(erro => `<li>${erro}</li>`).join('');
+    erros = [];
 }
