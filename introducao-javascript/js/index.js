@@ -30,6 +30,6 @@ function calcularIMC(peso, altura) {
 }
 
 function mostrarErro(paciente, imcTd, message) {
-    paciente.style.backgroundColor = 'lightcoral';
+    paciente.classList.add('paciente-invalido');
     imcTd.textContent = message;
 }
