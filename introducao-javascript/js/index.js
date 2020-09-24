@@ -6,9 +6,9 @@ pacientes.forEach(paciente => {
     let imcTd = paciente.querySelector('.info-imc');
     
     if(!validarPeso(peso))
-        imcTd.textContent = 'Peso inválido!';
+        mostrarErro(paciente, imcTd, 'Peso inválido!');
     else if (!validarAltura(altura))
-        imcTd.textContent = 'Altura inválida!';
+        mostrarErro(paciente, imcTd, 'Altura inválida!');
     else
         imcTd.textContent = calcularIMC(peso, altura);
 });
@@ -27,4 +27,9 @@ function validarAltura(altura) {
 
 function calcularIMC(peso, altura) {
     return (parseFloat(peso) / (parseFloat(altura) * 2)).toFixed(1);
+}
+
+function mostrarErro(paciente, imcTd, message) {
+    paciente.style.backgroundColor = 'lightcoral';
+    imcTd.textContent = message;
 }
