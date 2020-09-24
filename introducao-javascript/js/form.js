@@ -43,7 +43,7 @@ function adicionarPaciente(paciente) {
     pacienteTR.appendChild(criarTd(paciente.gordura, 'info-gordura'));
     pacienteTR.appendChild(criarTd(paciente.imc, 'info-imc'));
 
-    document.querySelector("#tabela-pacientes").appendChild(pacienteTR);
+    document.querySelector('#tabela-pacientes').appendChild(pacienteTR);
 }
 
 function criarTd(dado, classe){
@@ -56,12 +56,18 @@ function criarTd(dado, classe){
 function validarPaciente(paciente) {
     let erros = [];
 
-    if(!pesoEhValido(paciente.peso)) 
-        erros.push("Peso inválido!");
+    if(!paciente.nome)
+        erros.push('Nome do paciente não poder ficar vazio.');
 
-    if(!alturaEhValida(paciente.altura))
-        erros.push("Altura inválida!");
+    if(!pesoEhValido(paciente.peso) || !paciente.peso) 
+        erros.push('Peso inválido.');
+
+    if(!alturaEhValida(paciente.altura) || !paciente.altura)
+        erros.push('Altura inválida.');
     
+    if(!paciente.gordura)
+        erros.push('Gordura do paciente não poder ficar vazia.');
+
     return erros;
 }
 
