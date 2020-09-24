@@ -33,3 +33,37 @@ function mostrarErro(paciente, imcTd, message) {
     paciente.classList.add('paciente-invalido');
     imcTd.textContent = message;
 }
+
+let botao = document.querySelector('#adicionar-paciente');
+
+botao.addEventListener('click', (event) => {
+    event.preventDefault();
+    let form = document.querySelector('#form-paciente');
+
+    let nome = form.nome.value;
+    let peso = form.peso.value;
+    let altura = form.altura.value;
+    let gordura = form.gordura.value;
+
+    let pacienteTR = document.createElement('tr');
+
+    let nomeTd = document.createElement('td');
+    let pesoTd = document.createElement('td');
+    let alturaTd = document.createElement('td');
+    let gorduraTd = document.createElement('td');
+    let imcTd = document.createElement('td');
+
+    nomeTd.textContent = nome;
+    pesoTd.textContent = peso;
+    alturaTd.textContent = altura;
+    gorduraTd.textContent = gordura;
+    imcTd.textContent = calcularIMC(peso, altura);
+
+    pacienteTR.appendChild(nomeTd);
+    pacienteTR.appendChild(pesoTd);
+    pacienteTR.appendChild(alturaTd);
+    pacienteTR.appendChild(gorduraTd);
+    pacienteTR.appendChild(imcTd);
+
+    document.querySelector("#tabela-pacientes").appendChild(pacienteTR);
+});
