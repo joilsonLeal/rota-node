@@ -1,6 +1,3 @@
-pacientes.forEach(paciente => {
-        paciente.addEventListener('dblclick', () => {
-            paciente.remove();
-        })
-    }
+pacientes.forEach(paciente => 
+    paciente.addEventListener('dblclick', () => paciente.remove())
 );
