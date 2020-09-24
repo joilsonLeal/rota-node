@@ -3,10 +3,12 @@ let botao = document.querySelector('#adicionar-paciente');
 botao.addEventListener('click', (event) => {
     event.preventDefault();
     let form = document.querySelector('#form-paciente');
+    
     let paciente = obterInformacoesPaciente(form);
-    limparFormulario(form);
 
     adicionarPaciente(paciente);
+
+    form.reset();
 });
 
 function obterInformacoesPaciente(form) {
@@ -33,13 +35,6 @@ function adicionarPaciente(paciente) {
     pacienteTR.appendChild(criarTd(paciente.imc, 'info-imc'));
 
     document.querySelector("#tabela-pacientes").appendChild(pacienteTR);
-}
-
-function limparFormulario(form) {
-    form.nome.value = "";
-    form.peso.value = "";
-    form.altura.value = "";
-    form.gordura.value = "";
 }
 
 function criarTd(dado, classe){

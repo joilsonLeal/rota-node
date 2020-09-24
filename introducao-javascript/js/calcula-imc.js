@@ -5,24 +5,24 @@ pacientes.forEach(paciente => {
     let altura = paciente.querySelector('.info-altura').textContent;
     let imcTd = paciente.querySelector('.info-imc');
     
-    if(!validarPeso(peso))
+    if(!pesoEhValido(peso))
         mostrarErro(paciente, imcTd, 'Peso inválido!');
-    else if (!validarAltura(altura))
+    else if (!alturaEhValida(altura))
         mostrarErro(paciente, imcTd, 'Altura inválida!');
     else
         imcTd.textContent = calcularIMC(peso, altura);
 });
 
-function validarPeso(peso) {
-    if(peso < 0  || peso >= 600)
-        return false;
-    return true;
+function pesoEhValido(peso) {
+    if(peso >= 0 && peso <= 600)
+        return true;
+    return false;
 }
 
-function validarAltura(altura) {
-    if(altura < 0  || altura >= 3.0)
-        return false;
-    return true;
+function alturaEhValida(altura) {
+    if(altura >= 0  && altura < 3.0)
+        return true;
+    return false;
 }
 
 function calcularIMC(peso, altura) {
