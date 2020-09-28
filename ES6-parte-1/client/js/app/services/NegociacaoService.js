@@ -1,9 +1,14 @@
 class NegociacaoService {
-    async obterNegociacoesDaSemana(cb) {
-        await fetch('negociacoes/semana')
-            .then(response => response.json())
-            .then(result => {
-                cb(null, result.map(negociacao => 
+
+    constructor() {
+        this._httpService = new HttpService();
+    }
+
+    obterNegociacoesDaSemana() {
+        return new Promise((resolve, reject) =>
+            this._httpService.get('negociacoes/semana')
+            .then(negociacoes => {
+                resolve(negociacoes.map(negociacao => 
                     new Negociacao(
                         new Date(negociacao.data), 
                         negociacao.quantidade, 
@@ -11,8 +16,42 @@ class NegociacaoService {
                     )                  
                 ))
             })
-            .catch(err => {
-                cb('Ocorreu um erro ao importar as negociações.', null);
-        });
+            .catch(erro => 
+                reject('Ocorreu um erro ao importar negociações da semana.'))
+        );
+    }
+
+    obterNegociacoesDaSemanaAnterior() {
+        return new Promise((resolve, reject) =>
+            this._httpService.get('negociacoes/anterior')
+            .then(negociacoes => {
+                resolve(negociacoes.map(negociacao => 
+                    new Negociacao(
+                        new Date(negociacao.data), 
+                        negociacao.quantidade, 
+                        negociacao.valor
+                    )                  
+                ))
+            })
+            .catch(erro => 
+                reject('Ocorreu um erro ao importar negociações da semana anterior.'))
+        );
+    }
+
+    obterNegociacoesDaSemanaRetrasada() {
+        return new Promise((resolve, reject) =>
+        this._httpService.get('negociacoes/retrasada')
+        .then(negociacoes => {
+            resolve(negociacoes.map(negociacao => 
+                new Negociacao(
+                    new Date(negociacao.data), 
+                    negociacao.quantidade, 
+                    negociacao.valor
+                )                  
+            ))
+        })
+        .catch(erro => 
+            reject('Ocorreu um erro ao importar negociações da semana retrasada.'))
+    );
     }
 }
